@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bán Bút Chì B2</title>
+  <style>
+    /* Reset một số thuộc tính cơ bản */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+    }
+
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin-bottom: 10px;
+    }
+
+    header nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      width: 80%;
+    }
+
+    .product-item {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      text-align: center;
+    }
+
+    .product-item img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .product-item h3 {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .product-item p {
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    .product-item .price {
+      font-size: 20px;
+      color: #e91e63;
+      font-weight: bold;
+    }
+
+    .add-to-cart {
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .add-to-cart:hover {
+      background-color: #0b79d0;
+    }
+
+    .cart {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 250px;
+    }
+
+    .cart h2 {
+      margin-bottom: 10px;
+      font-size: 20px;
+      color: #333;
+    }
+
+    .cart ul {
+      list-style-type: none;
+      margin-bottom: 15px;
+    }
+
+    .cart ul li {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .cart button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .cart button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>Bán Bút Chì B2</h1>
+    <nav>
+      <a href="#">Trang Chủ</a>
+      <a href="#">Giới Thiệu</a>
+      <a href="#">Sản Phẩm</a>
+      <a href="#">Liên Hệ</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="product-list">
+      <div class="product-item">
+        <img src="https://via.placeholder.com/150" alt="Bút Chì B2">
+        <h3>Bút Chì B2</h3>
+        <p>Bút chì B2 chất lượng cao, viết mượt mà, không lem. Sản phẩm thích hợp cho học sinh và văn phòng.</p>
+        <p class="price">10,000 VND</p>
+        <button class="add-to-cart" onclick="addToCart('Bút Chì B2', 10000)">Thêm vào giỏ hàng</button>
+      </div>
+
+      <div class="product-item">
+        <img src="https://via.placeholder.com/150" alt="Bút Chì B2">
+        <h3>Bút Chì B2</h3>
+        <p>Bút chì B2 chất lượng cao, viết mượt mà, không lem. Sản phẩm thích hợp cho học sinh và văn phòng.</p>
+        <p class="price">10,000 VND</p>
+        <button class="add-to-cart" onclick="addToCart('Bút Chì B2', 10000)">Thêm vào giỏ hàng</button>
+      </div>
+
+      <div class="product-item">
+        <img src="https://via.placeholder.com/150" alt="Bút Chì B2">
+        <h3>Bút Chì B2</h3>
+        <p>Bút chì B2 chất lượng cao, viết mượt mà, không lem. Sản phẩm thích hợp cho học sinh và văn phòng.</p>
+        <p class="price">10,000 VND</p>
+        <button class="add-to-cart" onclick="addToCart('Bút Chì B2', 10000)">Thêm vào giỏ hàng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Giỏ Hàng -->
+  <div class="cart">
+    <h2>Giỏ Hàng</h2>
+    <ul id="cart-items"></ul>
+    <button onclick="checkout()">Thanh Toán</button>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    let cart = [];
+
+    function addToCart(productName, price) {
+      cart.push({ productName, price });
+      displayCart();
+    }
+
+    function displayCart() {
+      const cartItems = document.getElementById('cart-items');
+      cartItems.innerHTML = '';
+
+      let total = 0;
+      cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.productName} - ${item.price} VND`;
+        cartItems.appendChild(li);
+        total += item.price;
+      });
+
+      const totalLi = document.createElement('li');
+      totalLi.textContent = `Tổng: ${total} VND`;
+      cartItems.appendChild(totalLi);
+    }
+
+    function checkout() {
+      if (cart.length > 0) {
+        alert('Cảm ơn bạn đã mua hàng! Bạn sẽ nhận được sản phẩm trong thời gian sớm nhất.');
+        cart = [];
+        displayCart();
+      } else {
+        alert('Giỏ hàng của bạn đang trống.');
+      }
+    }
+  </script>
+
+</body>
+</html>
